@@ -107,28 +107,83 @@ var _ = { };
  
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    var newArray = [];
+    for (var i = 0; i < array.length; i++) {
+      newArray.push(iterator(array[i]));
+    }
+    return newArray;
   };
 
   // Takes an array of objects and returns and array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
-  _.pluck = function(array, propertyName) {
+  //array = [
+  // {age: 27,
+  //  name: "Erin"
+  // },
+  //   {
+  //     someone else,
+  //   }
+ // ]
+ 
+ _.pluck = function(array, propertyName) {
     var newArray = [];
     for (var i = 0; i < array.length; i++) {
-      for (var val in [propertyName]) {
-        newArray.push(val);
+      for (var key in array[i]) {
+        if (key === propertyName) {
+        newArray.push(array[i][propertyName]);
+        }
       }
     } 
-  };
+    return newArray;
+  }; 
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
+    
+    if (typeof methodName === "string") {
+      for (var i = 0; i < list.length; i++) {
+        list[i][methodName](args);
+      }
+    }
+    
+    else if (typeof methodName === "function") {
+      for (var i = 0; i < list.length; i++) {
+      methodName.call(list[i]);
+      }
+    }
+    return list;
   };
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
   // the return value of the previous iterator call.
+  
+  // [1, 2, 3], callback, 0
+  
+  /*initial value =p 0,    i = 0    item = 1        total = 1
+                  p = 1    i = 1    item = 2          total = 3
+                  p = 3    i = 2    item = 3          total = 6
+                  p = 6    i = 3    item = undefined
+  
+  */
+  
+
+  
   _.reduce = function(collection, iterator, initialValue) {
+    
+    if (initialValue) {
+    var previousValue = initialValue;
+    }
+    else {
+      previousValue = 0;
+    }
+    for (var i = 0; i < collection.length; i++) {
+      var item = collection[i];
+      previousValue = iterator(previousValue, item);
+     }
+    return previousValue;
+    
   };
 
   // Determine if the array or object contains a given value (using `===`).

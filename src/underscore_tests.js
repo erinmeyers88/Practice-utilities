@@ -188,17 +188,50 @@ var _ = { };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
+    
+      for (var key in collection) {
+        if (collection[key] === target) {
+          return true;
+        }
+      }
+    return false;
   };
 
 
   // Determine whether all of the elements match a truth test.
-  _.every = function(collection, iterator) {
-  };
+  
+  
+  // _.every = function(collection, iterator) {
+  //   for (var key in collection) { function (iterator) {
+  //     iterator();
+  //     }
+  //   }
+  //   return iterator();
+    
+  // };
+
+
+
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function(collection, iterator) {
-  };
+  
+  
+  
+  // _.some = function(collection, iterator) {
+  //   iterator = (iterator === undefined) ? (function () {
+  //     if (collection);
+  //   }) : iterator;
+    
+  //   for (var key in collection) { function (iterator) {
+      
+  //     iterator();
+  //     }
+  //   }
+    
+    
+    
+  // };
 
 
   /**
@@ -210,8 +243,16 @@ var _ = { };
 
   // Extend a given object with all the properties of the passed in
   // object(s).
-  _.extend = function(obj) {
-  };
+  
+  
+  // _.extend = function(obj) {
+  //   var newObj = {};
+  //   for (var key in obj) {
+  //     obj[key] = newObj[key];  
+  //   } 
+  
+  // };
+  
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
@@ -227,6 +268,18 @@ var _ = { };
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
   _.once = function(func) {
+    
+    var counter = 0;
+    
+    if (counter === 0) {
+      var result = func;
+      counter = 1;
+    } 
+    
+    else {
+       return result;
+     }
+      
   };
 
   // Memoize an expensive function by storing its results. You may assume
@@ -245,6 +298,7 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+     
   };
 
 
@@ -265,8 +319,30 @@ var _ = { };
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
-  _.zip = function() {
-  };
+  // _.zip = function(a, b, c) {
+  //  var newArray = []; 
+  //  var alength = a.length;
+  //  var blength = b.length;
+  //  var clength = c.length;
+  //  var longest;
+   
+  //  if (alength > blength && alength > clength) {
+  //    longest = a;
+  //  }
+   
+  //  else if (blength > alength && blength > clength) {
+  //    longest = b;
+  //  }
+   
+  //  else {
+  //    longest = c;
+  //  }
+   
+  //  for (var i = 0; i < longest.length; i++) {
+  //  newArray.push([a[i], b[i], c[i]]);
+  //  } 
+  //  return(newArray);
+  // };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
@@ -275,12 +351,35 @@ var _ = { };
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function() {
+  _.intersection = function () {
+
+
+    var firstArray = [];
+    var finalArray = [];
+    for (var i = 0; i < arguments.length; i++) {
+      for (var item in arguments[i]) {
+        firstArray.push(arguments[i][item]);
+      }
+    }
+    for (var j = 0; j < firstArray.length; j++) {
+      if (firstArray.indexOf(firstArray[j]) !== j) {
+        finalArray.push(firstArray[j]);
+      }
+    }
+
+    return finalArray;
+
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    
+    
+    
+    
+    
+    
   };
 
 }).call(this);
